@@ -5,7 +5,10 @@
 #include "sequence.h"
 
 
-// 30*26=780 -> highest gimatric value for a word of lenth 30
+/* 
+ * 30*26=780 -> highest gimatric value for a word of lenth 30
+    ex: 30 times 'z' with gimatric value of 26 -> 780 times 'a' with gimatric value of 1
+*/
 #define TEXT 1024
 #define WORD 30
 #define MAX_CHAR 780
@@ -32,11 +35,11 @@ int atbash_char(char ch) {
     a = char_val(ch);
     b = ((-1)*a)+26 +1;
     if (isupper(ch)) {
-        b+= 'A';
+        b += 'A';
         b--;
     }
     else if (islower(ch)) {
-        b+= 'a';
+        b += 'a';
         b--;
     }
     return b;
@@ -49,6 +52,28 @@ char* atbash_wrd(char* word) {
         wrd[i] = atbash_char(word[i]);
     }
     return wrd;
+}
+
+char* remove_whtspc(const char* str, int c) {
+    char* new_str = malloc(sizeof(char)*strlen(str));
+    memset(new_str, 0, strlen(new_str));
+    new_str = strcpy(new_str,str);
+    int del_index=0, amnt_del=0;
+    for (int k=0; k<strlen(new_str); k++) {
+        if (new_str[k]==c) {
+            ++amnt_del;
+        }
+    }
+    for (int i = 0; i < amnt_del; i++) {
+        for (int j = 0; j<strlen(new_str); j++) {
+            if (new_str[j] == c) {
+                del_index=j;
+                break;
+            }
+        }
+        memmove(&new_str[del_index], &new_str[del_index+1], strlen(new_str) - del_index);
+    }
+    return new_str;
 }
 
 char* reverse_str(char* word) {
@@ -64,11 +89,13 @@ char* reverse_str(char* word) {
 
 void print_gimatria(char *word, char *txt) {
     printf("Gematria Sequences: ");
+
+    int wrd_len = strlen(word);
+    int txt_len = strlen(txt);
+
     int wrd_val = word_val(word), curr_val=0, curr_len = 0, j=0;
     char tmp_wrd[MAX_CHAR] = "";
-    /*
-        
-    */
+
     for (int i = 0; i < strlen(txt); ++i) {
         curr_val += char_val(txt[i]);
         if (strlen(tmp_wrd)==0) {
@@ -89,9 +116,10 @@ void print_gimatria(char *word, char *txt) {
             curr_len = 0;
             j=0;
             memset(tmp_wrd, 0, strlen(tmp_wrd));
-        } else if (curr_val > 0 && curr_val == wrd_val) {
+        }
+        else if (curr_val > 0 && curr_val == wrd_val) {
             printf("%s", tmp_wrd);
-            if (i < strlen(txt)-1-1) {
+            if (i + curr_len + wrd_len < txt_len) {
                 printf("~");
             }
             curr_val = 0;
@@ -111,6 +139,7 @@ void print_atbash(char *word, char *txt) {
 
     int wrd_len = strlen(word);
     int txt_len = strlen(txt);
+
     char *wrd = malloc(sizeof(char)*strlen(word)),
         *wrd_atbash = malloc(sizeof(char)*strlen(word)),
         *rev_wrd = malloc(sizeof(char)*strlen(word)),
@@ -121,10 +150,13 @@ void print_atbash(char *word, char *txt) {
     rev_wrd = reverse_str(word);
     rev_wrd_atbash = atbash_wrd(rev_wrd);
     
-    int curr_len = 0, j=0;
+    int curr_val = 0, curr_len = 0, j=0;
     char tmp_wrd[MAX_CHAR] = "";
 
+    int wrd_atbash_val = word_val(wrd_atbash);
+
     for (int i = 0; i < strlen(txt); ++i) {
+        curr_val += char_val(txt[i]);
         if (strlen(tmp_wrd)==0) {
             if (isalpha(txt[i]) != 0) {
                 tmp_wrd[j] = txt[i];
@@ -137,15 +169,20 @@ void print_atbash(char *word, char *txt) {
         }
 
         curr_len = strlen(tmp_wrd);
-        if (curr_len > wrd_len) {
+        if (curr_val > wrd_atbash_val) {
             i -= curr_len;
             i+=1;
             curr_len = 0;
+            curr_val = 0;
             j=0;
             memset(tmp_wrd, 0, strlen(tmp_wrd));
         }
-        else if (curr_len==wrd_len) {
-            if (strcmp(tmp_wrd, wrd_atbash)==0 || strcmp(tmp_wrd, rev_wrd_atbash)==0) {
+        else if (curr_val > 0 && curr_val==wrd_atbash_val) {
+            char* tmp = malloc(sizeof(char)*strlen(tmp_wrd));
+            memset(tmp, 0, strlen(tmp));
+            tmp = strcpy(tmp, tmp_wrd);
+            tmp = remove_whtspc(tmp, ' ');
+            if (strcmp(tmp, wrd_atbash)==0 || strcmp(tmp, rev_wrd_atbash)==0) {
                 printf("%s", tmp_wrd);
                 if (i + curr_len + wrd_len < txt_len) {
                     printf("~");
@@ -153,16 +190,16 @@ void print_atbash(char *word, char *txt) {
             }
         }
     }
-    
+
     printf("\n");
 }
 
-int main(void)
-{
+int main(void) {
     char* word = "abcd";
     char* txt = "a-bc,dbca-zwxyzabzyxw0dcba~";
     printf("%s\n%s\n", word, txt);
     print_gimatria(word, txt);
     print_atbash(word, txt);
+    // print_anagram(word, txt);
     return 0;
 }
