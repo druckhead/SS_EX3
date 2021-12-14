@@ -94,7 +94,8 @@ void print_gimatria(char *word, char *txt) {
     int txt_len = strlen(txt);
 
     int wrd_val = word_val(word), curr_val=0, curr_len = 0, j=0;
-    char tmp_wrd[MAX_CHAR] = "";
+    char* tmp_wrd = malloc(MAX_CHAR);
+    memset(tmp_wrd, 0, strlen(tmp_wrd));
 
     for (int i = 0; i < strlen(txt); ++i) {
         curr_val += char_val(txt[i]);
@@ -132,6 +133,7 @@ void print_gimatria(char *word, char *txt) {
         }
     }
     printf("\n");
+    free(tmp_wrd);
 }
 
 void print_atbash(char *word, char *txt) {
@@ -151,7 +153,8 @@ void print_atbash(char *word, char *txt) {
     rev_wrd_atbash = atbash_wrd(rev_wrd);
     
     int curr_val = 0, curr_len = 0, j=0;
-    char tmp_wrd[MAX_CHAR] = "";
+    char* tmp_wrd = malloc(MAX_CHAR);
+    memset(tmp_wrd, 0, strlen(tmp_wrd));
 
     int wrd_atbash_val = word_val(wrd_atbash);
 
@@ -190,8 +193,16 @@ void print_atbash(char *word, char *txt) {
             }
         }
     }
-
+    free(wrd);
+    free(wrd_atbash);
+    free(rev_wrd);
+    free(rev_wrd_atbash);
+    free(tmp_wrd);
     printf("\n");
+}
+
+void print_anagram(char* word, char* txt) {
+
 }
 
 int main(void) {
