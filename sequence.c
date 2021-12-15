@@ -133,7 +133,7 @@ void print_gimatria(char *word, char *txt) {
         }
     }
     printf("\n");
-    free(tmp_wrd);
+    // free(tmp_wrd);
 }
 
 void print_atbash(char *word, char *txt) {
@@ -193,16 +193,73 @@ void print_atbash(char *word, char *txt) {
             }
         }
     }
-    free(wrd);
-    free(wrd_atbash);
-    free(rev_wrd);
-    free(rev_wrd_atbash);
-    free(tmp_wrd);
+    // free(wrd);
+    // free(wrd_atbash);
+    // free(rev_wrd);
+    // free(rev_wrd_atbash);
+    // free(tmp_wrd);
     printf("\n");
 }
 
 void print_anagram(char* word, char* txt) {
+    printf("Anagram Sequences: ");
 
+    int wrd_len = strlen(word);
+    int txt_len = strlen(txt);
+
+    int wrd_val = word_val(word), curr_val=0, curr_len = 0, j=0;
+    char* tmp_wrd = malloc(MAX_CHAR);
+    memset(tmp_wrd, 0, strlen(tmp_wrd));
+
+    char* wrd_cpy = malloc(MAX_CHAR);
+    memset(wrd_cpy, 0, strlen(wrd_cpy));
+    wrd_cpy = strcpy(wrd_cpy, word);
+
+    for (int i = 0; i < strlen(txt); ++i) {
+        curr_val += char_val(txt[i]);
+        if (strlen(tmp_wrd)==0) {
+            if (isalpha(txt[i]) != 0) {
+                tmp_wrd[j] = txt[i];
+                ++j;
+            }
+        }
+        else {
+            tmp_wrd[j] = txt[i];
+            ++j;
+        }
+        curr_len++;
+        if (curr_val > wrd_val) {
+            curr_val = 0;
+            i -= curr_len;
+            i+=1;
+            curr_len = 0;
+            j=0;
+            memset(tmp_wrd, 0, strlen(tmp_wrd));
+        }
+        else if (curr_val > 0 && curr_val == wrd_val) {
+            char* tmp_cpy = malloc(MAX_CHAR);
+            memset(tmp_cpy, 0, strlen(tmp_cpy));
+            tmp_cpy = strcpy(tmp_cpy, tmp_wrd);
+
+            while (strlen(wrd_cpy)>0) {
+                
+            }
+            printf("%s", tmp_wrd);
+
+            if (i + curr_len + wrd_len < txt_len) {
+                printf("~");
+            }
+            curr_val = 0;
+            if (curr_len!=1) {
+                i -= 1;
+            }
+            curr_len = 0;
+            j=0;
+            memset(tmp_wrd, 0, strlen(tmp_wrd));
+        }
+    }
+    printf("\n");
+    free(tmp_wrd);
 }
 
 int main(void) {
@@ -211,6 +268,6 @@ int main(void) {
     printf("%s\n%s\n", word, txt);
     print_gimatria(word, txt);
     print_atbash(word, txt);
-    // print_anagram(word, txt);
+    print_anagram(word, txt);
     return 0;
 }
