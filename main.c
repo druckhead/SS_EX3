@@ -28,6 +28,6 @@ int main(void) {
     char* atbash_str = atbash(word, txt);
     printf("%s\n", atbash_str);
     char* anagram_str = anagram(word, txt);
-    printf("%s\n", anagram_str);
+    printf("%s", anagram_str);
     return 0;
 }
