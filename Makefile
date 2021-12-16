@@ -6,17 +6,17 @@ EXE=stringProg
 
 all: ${EXE}
 
-stringProg: main.c seqlib.a
-	${CC} ${CFLAGS} -o ${EXE} $?
+stringProg: main.c seqlib.a sequence.h
+	${CC} ${CFLAGS} -o ${EXE} main.c seqlib.a
 
-seqlib.a: seq_helper.o sequence.o
-	${AR} seqlib.a $?
+seqlib.a: sequence.o seq_helper.o
+	${AR} seqlib.a sequence.o seq_helper.o
 
-sequence.o: sequence.c seq_helper.o
-	${CC} ${CFLAGS} -c $<
+sequence.o: sequence.c seq_helper.c seq_helper.h
+	${CC} ${CFLAGS} -c sequence.c seq_helper.c
 
 seq_helper.o: seq_helper.c seq_helper.h
-	${CC} ${CFLAGS} -c $<
+	${CC} ${CFLAGS} -c seq_helper.c
 
 .PHONY: clean all main
 
