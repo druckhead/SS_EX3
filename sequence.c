@@ -247,7 +247,7 @@ a-bc,dbca-zwxyzabzyxw0dcba~
             curr_len++;
             if (word_val(tmp_wrd) > atbash_str_val) {
                 j=0;
-                // i=i-curr_len+1;
+                i=i-curr_len+1;
                 curr_len=0;
                 memset(tmp_wrd,0,strlen(tmp_wrd));
             }
@@ -408,15 +408,15 @@ int main(void) {
         word[i++] = c;
     }
     word[i] = '\0';
-
     char* txt = malloc(TEXT);
     memset(txt,0,strlen(txt));
     i=0;c=0;
-    while((c=getchar()) != '~') {
+    while ((c=getchar())!='~') {
         txt[i++] = c;
     }
-    txt[i] = '\0';
-    
+    txt[i] = 0;
+    memset(stdin,0,sizeof(stdin));
+
     char* gim_str = gimatria(word, txt);
     printf("%s\n",gim_str);
     char* atbash_str = atbash(word, txt);
