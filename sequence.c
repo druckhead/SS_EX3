@@ -109,7 +109,7 @@ char* atbash(char *word, char* txt) {
                 char* tmp = malloc(sizeof(char)*strlen(tmp_wrd));
                 memset(tmp, 0, strlen(tmp));
                 tmp = strcpy(tmp, tmp_wrd);
-                tmp = remove_whtspc(tmp, ' ');
+                tmp = remove_allchars(tmp, ' ');
                 if (strcmp(tmp, atbash_str)==0 || strcmp(tmp, rev_wrd_atbash)==0) {
                     tmp_wrd=strcat(tmp_wrd, "~");
                     atbash_prnt=strcat(atbash_prnt, tmp_wrd);
@@ -143,7 +143,6 @@ char* anagram(char* word, char* txt) {
 
     char* word_cpy = malloc(WORD);
     memset(word_cpy,0,strlen(word_cpy));
-    word_cpy = strcpy(word_cpy, word);
 
     char* anagram_str = malloc(TEXT);
     memset(anagram_str,0,strlen(anagram_str));
@@ -159,22 +158,27 @@ char* anagram(char* word, char* txt) {
         if (contains) {
             tmp_wrd[j] = txt[i];
             j++;
+            // remove char from word_cpy
+            word_cpy = remove_char(word_cpy, txt[i]);
         }
         else if (txt[i] == ' ') {
             tmp_wrd[j] = txt[i];
             j++;
         }
         else {
+            word_cpy = strcpy(word_cpy, word);
             i = i -j;
             if (j > 0) i++;
             memset(tmp_wrd,0,strlen(tmp_wrd));
+            word_cpy = strcpy(word_cpy, word);
             j=0;
         }
         if (j == wrd_len) {
-                if (MIN_SEQ) {
+                if (MIN_SEQ && (strlen(word_cpy)==0)) {
                     tmp_wrd = strcat(tmp_wrd, "~");
                     anagram_str=strcat(anagram_str, tmp_wrd);
                     memset(tmp_wrd,0,strlen(tmp_wrd));
+                    word_cpy = strcpy(word_cpy, word);
                     i-=j;
                     i++;
                     j=0;
@@ -183,9 +187,10 @@ char* anagram(char* word, char* txt) {
                     i = i -j;
                     i++;
                     memset(tmp_wrd,0,strlen(tmp_wrd));
+                    word_cpy = strcpy(word_cpy, word);
                     j=0;
                 }
-            }
+        }
     }
     if (strlen(anagram_str) > 0) {
         memset(tmp_wrd,0,strlen(tmp_wrd));

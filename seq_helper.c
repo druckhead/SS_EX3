@@ -53,7 +53,28 @@ char* atbash_wrd(char* word) {
     return wrd;
 }
 
-char* remove_whtspc(const char* str, int c) {
+char* remove_char(char* str, int c) {
+    int contains = contains_char(str, c);
+    if (contains) {
+        char* new_str = malloc(sizeof(char)*strlen(str));
+        memset(new_str, 0, strlen(new_str));
+        new_str = strcpy(new_str,str);
+
+        int del_index=0;
+        
+        for (int j = 0; j<strlen(new_str); j++) {
+                if (new_str[j] == c) {
+                    del_index=j;
+                    break;
+                }
+        }
+        memmove(&new_str[del_index], &new_str[del_index+1], strlen(new_str) - del_index);
+        return new_str;
+    }
+    return str;
+}
+
+char* remove_allchars(const char* str, int c) {
     char* new_str = malloc(sizeof(char)*strlen(str));
     memset(new_str, 0, strlen(new_str));
     new_str = strcpy(new_str,str);
