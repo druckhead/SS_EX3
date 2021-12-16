@@ -4,7 +4,6 @@
 #include <ctype.h>
 
 #include "seq_helper.h"
-#include "sequence.h"
 #include "definitions.h"
 
 #define TRUE 1

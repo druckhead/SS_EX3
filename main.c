@@ -1,6 +1,6 @@
 #include "definitions.h"
 #include "sequence.h"
-#include "seq_lib.h"
+#include "seq_helper.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -21,13 +21,13 @@ int main(void) {
     while ((c=getchar())!='~') {
         txt[i++] = c;
     }
-    txt[i] = 0;
+    txt[i] = '\0';
     while(strlen(stdin->_IO_read_ptr)!=0) getchar();
     char* gim_str = gimatria(word, txt);
     printf("%s\n",gim_str);
-    // char* atbash_str = atbash(word, txt);
-    // printf("%s\n", atbash_str);
-    // char* anagram_str = anagram(word, txt);
-    // printf("%s\n", anagram_str);
+    char* atbash_str = atbash(word, txt);
+    printf("%s\n", atbash_str);
+    char* anagram_str = anagram(word, txt);
+    printf("%s\n", anagram_str);
     return 0;
 }

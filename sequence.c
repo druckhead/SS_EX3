@@ -137,51 +137,68 @@ char* atbash(char *word, char* txt) {
 char* anagram(char* word, char* txt) {
     printf("Anagram Sequences: ");
 
-    int curr_len=0;
-
+    int j = 0, contains=0;
     int wrd_len = strlen(word);
     int txt_len = strlen(txt);
 
-    // suppose to hold strings for the print
-    char* anagram_str = malloc(MAX_CHAR);
+    char* word_cpy = malloc(WORD);
+    memset(word_cpy,0,strlen(word_cpy));
+    word_cpy = strcpy(word_cpy, word);
+
+    char* anagram_str = malloc(TEXT);
     memset(anagram_str,0,strlen(anagram_str));
 
-    // for current sequence
-    char* tmp_wrd = malloc(MAX_CHAR);
-    memset(tmp_wrd,0,strlen(tmp_wrd));
+    char* tmp_wrd = malloc(TEXT);
+    memset(tmp_wrd, 0, strlen(tmp_wrd));
 
-    char* tmp_wrd_spc = malloc(MAX_CHAR);
-    memset(tmp_wrd_spc,0,strlen(tmp_wrd_spc));
+    word_cpy = memmove(&word_cpy[j], &word_cpy[j+1], strlen(word_cpy) - j);
+
 
     for (int i=0; i<txt_len;i++) {
-        int contains = contains_char(word, txt[i]);
+        contains = contains_char(word, txt[i]);
         if (contains) {
-            tmp_wrd[curr_len] = txt[i];
-            tmp_wrd_spc[curr_len] = txt[i];
-            curr_len++;
-            if (curr_len >= wrd_len) {
-                if (MIN_SEQ) {
-                    anagram_str = strcat(anagram_str, tmp_wrd_spc);
-                    anagram_str = strcat(anagram_str, "~");
-                }
-            }
+            tmp_wrd[j] = txt[i];
+            j++;
         }
         else if (txt[i] == ' ') {
-            tmp_wrd_spc[i] = txt[i];
+            tmp_wrd[j] = txt[i];
+            j++;
         }
         else {
-            i-=curr_len;
-            if (curr_len>0) {
-                i++;
-            }
-            curr_len=0;
+            i = i -j;
+            if (j > 0) i++;
             memset(tmp_wrd,0,strlen(tmp_wrd));
-            memset(tmp_wrd_spc,0,strlen(tmp_wrd_spc));
+            j=0;
         }
+        if (j == wrd_len) {
+                if (MIN_SEQ) {
+                    tmp_wrd = strcat(tmp_wrd, "~");
+                    anagram_str=strcat(anagram_str, tmp_wrd);
+                    memset(tmp_wrd,0,strlen(tmp_wrd));
+                    i-=j;
+                    i++;
+                    j=0;
+                }
+                else {
+                    i = i -j;
+                    i++;
+                    memset(tmp_wrd,0,strlen(tmp_wrd));
+                    j=0;
+                }
+            }
     }
-    memset(tmp_wrd,0,strlen(tmp_wrd));
-    if(strlen(anagram_str)!=0) {
-        tmp_wrd=strncpy(tmp_wrd, anagram_str, strlen(anagram_str)-1);
-    } 
+    if (strlen(anagram_str) > 0) {
+        memset(tmp_wrd,0,strlen(tmp_wrd));
+        tmp_wrd = strncpy(tmp_wrd, anagram_str, strlen(anagram_str)-1);
+    }
     return tmp_wrd;
 }
+
+// int main(int argc, char const *argv[])
+// {
+//     char * w = "abcd";
+//     char * t = "a-bc,dbca-zwxyzabzyxw0dcba~";
+//     char * a = anagram(w,t);
+//     printf("%s",a);
+//     return 0;
+// }
