@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
 
 char* gimatria(char *word, char *txt) {
     printf("Gematria Sequences: ");
