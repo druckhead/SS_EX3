@@ -6,14 +6,14 @@ EXE=stringProg
 
 all: ${EXE}
 
-stringProg: main.c seqlib.a
-	${CC} ${CFLAGS} -o ${exe} $< seqlib.a
+stringProg: main.c sequence.o seqlib.a
+	${CC} ${CFLAGS} -o ${EXE} main.c seqlib.a
 
-seqlib.a: seq_lib.o
-	${AR} seqlib.a $<
+sequence.o: sequence.c seq_lib.o
+	${CC} ${CFLAGS} sequence.c seq_lib.o -o sequence.o
 
-seqlib,o: seq_lib.c seq_lib.h
-	${CC} ${CFLAGS} -c #< -o seqlib.o
+seq_lib.o: seq_lib.c seq_lib.h
+	${CC} ${CFLAGS} -c seq_lib.c
 
 .PHONY: clean all main
 

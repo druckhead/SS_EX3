@@ -1,6 +1,10 @@
 #include "definitions.h"
-// #include <stdlib.h>
+#include "sequence.h"
+#include "seq_lib.h"
+
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 int main(void) {
     char* word = malloc(WORD);
@@ -21,9 +25,9 @@ int main(void) {
     while(strlen(stdin->_IO_read_ptr)!=0) getchar();
     char* gim_str = gimatria(word, txt);
     printf("%s\n",gim_str);
-    char* atbash_str = atbash(word, txt);
-    printf("%s\n", atbash_str);
-    char* anagram_str = anagram(word, txt);
-    printf("%s\n", anagram_str);
+    // char* atbash_str = atbash(word, txt);
+    // printf("%s\n", atbash_str);
+    // char* anagram_str = anagram(word, txt);
+    // printf("%s\n", anagram_str);
     return 0;
 }

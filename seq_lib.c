@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+
+#include "seq_lib.h"
 #include "sequence.h"
 #include "definitions.h"
 

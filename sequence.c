@@ -2,6 +2,9 @@
 #include "seq_lib.h"
 #include "sequence.h"
 
+#include <stdio.h>
+#include <string.h>
+
 char* gimatria(char *word, char *txt) {
     printf("Gematria Sequences: ");
 
