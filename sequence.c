@@ -1,5 +1,5 @@
 #include "definitions.h"
-#include "seq_lib.h"
+#include "seq_helper.h"
 #include "sequence.h"
 
 #include <stdio.h>
