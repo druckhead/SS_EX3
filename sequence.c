@@ -415,8 +415,7 @@ int main(void) {
         txt[i++] = c;
     }
     txt[i] = 0;
-    memset(stdin,0,sizeof(stdin));
-
+    while(strlen(stdin->_IO_read_ptr)!=0) getchar();
     char* gim_str = gimatria(word, txt);
     printf("%s\n",gim_str);
     char* atbash_str = atbash(word, txt);
