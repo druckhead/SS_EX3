@@ -18,7 +18,7 @@ sequence.o: sequence.c seq_helper.c seq_helper.h
 seq_helper.o: seq_helper.c seq_helper.h
 	${CC} ${CFLAGS} -c seq_helper.c
 
-.PHONY: clean all main
+.PHONY: clean all
 
 clean: 
 	rm -f *.o *.a stringProg

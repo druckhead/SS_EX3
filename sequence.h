@@ -1,17 +1,38 @@
-int word_val(char* word);
-int char_val(char ch);
+/**
+ * @file sequence.h
+ * @author daniel raz (https://github.com/druckhead) amir gill (https://github.com/amirg00)
+ * @brief 
+ * @version 0.1
+ * @date 2021-12-17
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
 
-int atbash_char(char ch);
-char* atbash_wrd(char *word);
 
-char* remove_char(char* word, int c);
-char* remove_allchars(const char* word, int c);
-char* reverse_str(char* word);
-
-int contains_char(char* word, int c);
-
+/**
+ * @brief finds all minimal sequences in txt with the same gimatric value as word
+ * 
+ * @param word string
+ * @param txt string
+ * @return char* containing all said sequences
+ */
 char* gimatria(char* word, char* txt);
 
+/**
+ * @brief finds all minimal sequences in txt that are atbash or the reversed atbash of word
+ * 
+ * @param word string
+ * @param txt string
+ * @return char* containing all said sequences
+ */
 char* atbash(char* word, char* txt);
 
+/**
+ * @brief finds all minimal sequences in txt that are constructed ONLY from (all) characters in word and whitespaces
+ * 
+ * @param word string
+ * @param txt string
+ * @return char* containing all said sequences
+ */
 char* anagram(char* word, char* txt);

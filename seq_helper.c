@@ -1,13 +1,40 @@
+/**
+ * @file seq_helper.c
+ * @author daniel raz (https://github.com/druckhead) amir gill (https://github.com/amirg00)
+ * @brief 
+ * @version 0.1
+ * @date 2021-12-17
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
+/**************************************
+*********** MY HEADERS ****************
+**************************************/
+
+#include "seq_helper.h"
+#include "definitions.h"
+
+/**************************************
+******** C STANDARD HEADERS ***********
+***************************************/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
 
-#include "seq_helper.h"
-#include "definitions.h"
+/**************************************
+************* DEFINITIONS *************
+**************************************/
 
 #define TRUE 1
 #define FALSE 0
+
+/**************************************
+************** FUNCTIONS **************
+***************************************/
 
 int char_val(char ch) {
     if (isupper(ch)) {
@@ -45,7 +72,7 @@ int atbash_char(char ch) {
 
 char* atbash_wrd(char* word) {
     char* wrd = malloc(sizeof(char)*strlen(word));
-    memset(wrd, 0, strlen(wrd));
+    // memset(wrd, 0, strlen(wrd));
     wrd = strcpy(wrd, word);
     for (int i=0; i<strlen(word); i++) {
         wrd[i] = atbash_char(word[i]);
@@ -74,9 +101,9 @@ char* remove_char(char* str, int c) {
     return str;
 }
 
-char* remove_allchars(const char* str, int c) {
+char* remove_allchars(char* str, int c) {
     char* new_str = malloc(sizeof(char)*strlen(str));
-    memset(new_str, 0, strlen(new_str));
+    // memset(new_str, 0, strlen(new_str));
     new_str = strcpy(new_str,str);
 
     int del_index=0, amnt_del=0;
@@ -99,7 +126,7 @@ char* remove_allchars(const char* str, int c) {
 
 char* reverse_str(char* word) {
     char* str = (malloc(sizeof(char)*strlen(word)));
-    memset(str, 0, strlen(str));
+    // memset(str, 0, strlen(str));
     str = strcpy(str, word);
     int j = 0;
     for (int i = strlen(word)-1; i>=0; i--) {
