@@ -84,9 +84,6 @@ char* gimatria(char *word, char *txt) {
 ******
 *bugs* 
 ******
-abcd -> cdaa
-
-
 abcd
 a-bc,dbca-zwxyzabzyxw0dcba~
 (not printing b substrings)
@@ -179,10 +176,11 @@ char* anagram(char* word, char* txt) {
     char* tmp_wrd = malloc(TEXT);
     memset(tmp_wrd, 0, strlen(tmp_wrd));
 
-    word_cpy = memmove(&word_cpy[curr_len], &word_cpy[curr_len+1], strlen(word_cpy) - curr_len);
+    // word_cpy = memmove(&word_cpy[curr_len], &word_cpy[curr_len], strlen(word_cpy) - curr_len);
+    word_cpy = strcpy(word_cpy, word);
 
     for (int i=0; i<txt_len;i++) {
-        contains = contains_char(word, txt[i]);
+        contains = contains_char(word_cpy, txt[i]);
         if (contains) {
             tmp_wrd[curr_len] = txt[i];
             curr_len++;
@@ -194,7 +192,6 @@ char* anagram(char* word, char* txt) {
             curr_len++;
         }
         else {
-            word_cpy = strcpy(word_cpy, word);
             i = i - curr_len;
             if (curr_len > 0) i++;
             memset(tmp_wrd,0,strlen(tmp_wrd));
@@ -218,6 +215,9 @@ char* anagram(char* word, char* txt) {
                     word_cpy = strcpy(word_cpy, word);
                     curr_len=0;
                 }
+        }
+        else if (i==txt_len-1 && curr_len != wrd_len) {
+            memset(tmp_wrd,0,strlen(tmp_wrd));
         }
     }
     if (strlen(anagram_str) > 0) {
