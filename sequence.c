@@ -189,7 +189,7 @@ char* anagram(char* word, char* txt) {
         }
         else if (txt[i] == ' ') {
             tmp_wrd[curr_len] = txt[i];
-            curr_len++;
+            // curr_len++;
         }
         else {
             i = i - curr_len;
