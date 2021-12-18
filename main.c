@@ -59,10 +59,10 @@ int main(void) {
      useful if received input after '~' character
      we need to clear this.
     */
-    while(strlen(stdin->_IO_read_ptr)!=0) getchar();
-    if (strlen(stdin->_IO_read_base)!=0) {
-        memset(stdin->_IO_read_base,0,strlen(stdin->_IO_read_base));
-    }
+    // while(strlen(stdin->_IO_read_ptr)!=0) getchar();
+    // if (strlen(stdin->_IO_read_base)!=0) {
+    //     memset(stdin->_IO_read_base,0,strlen(stdin->_IO_read_base));
+    // }
     
     char* gim_str = gimatria(word, txt);
     printf("%s\n",gim_str);
