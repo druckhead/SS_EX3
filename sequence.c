@@ -189,7 +189,7 @@ char* anagram(char* word, char* txt) {
         }
         else if (txt[i] == ' ') {
             tmp_wrd[curr_len] = txt[i];
-            // curr_len++;
+            curr_len++;
         }
         else {
             i = i - curr_len;
@@ -216,7 +216,7 @@ char* anagram(char* word, char* txt) {
                     curr_len=0;
                 }
         }
-        else if (i==txt_len-1 && curr_len != wrd_len) {
+        else if (i==txt_len && curr_len != wrd_len) {
             memset(tmp_wrd,0,strlen(tmp_wrd));
         }
     }
