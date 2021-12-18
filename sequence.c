@@ -178,8 +178,11 @@ char* anagram(char* word, char* txt) {
 
     // word_cpy = memmove(&word_cpy[curr_len], &word_cpy[curr_len], strlen(word_cpy) - curr_len);
     word_cpy = strcpy(word_cpy, word);
-
-    for (int i=0; i<txt_len;i++) {
+    int s = 0;
+    for (int i=0; i < txt_len;i++) {
+        if (txt[i] == ' ' && curr_len == 0) {
+            continue;
+        }
         contains = contains_char(word_cpy, txt[i]);
         if (contains) {
             tmp_wrd[curr_len] = txt[i];
@@ -190,6 +193,7 @@ char* anagram(char* word, char* txt) {
         else if (txt[i] == ' ') {
             tmp_wrd[curr_len] = txt[i];
             curr_len++;
+            s++;
         }
         else {
             i = i - curr_len;
@@ -198,7 +202,7 @@ char* anagram(char* word, char* txt) {
             word_cpy = strcpy(word_cpy, word);
             curr_len=0;
         }
-        if (curr_len == wrd_len) {
+        if (curr_len-s == wrd_len) {
                 if (MIN_SEQ && (strlen(word_cpy)==0)) {
                     tmp_wrd = strcat(tmp_wrd, "~");
                     anagram_str=strcat(anagram_str, tmp_wrd);
@@ -216,7 +220,7 @@ char* anagram(char* word, char* txt) {
                     curr_len=0;
                 }
         }
-        else if (i==txt_len-1 && curr_len != wrd_len) {
+        if (i==txt_len-1 && curr_len-s != wrd_len) {
             memset(tmp_wrd,0,strlen(tmp_wrd));
         }
     }
