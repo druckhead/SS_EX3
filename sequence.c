@@ -201,6 +201,7 @@ char* anagram(char* word, char* txt) {
             memset(tmp_wrd,0,strlen(tmp_wrd));
             word_cpy = strcpy(word_cpy, word);
             curr_len=0;
+            s=0;
         }
         if (curr_len-s == wrd_len) {
                 if (MIN_SEQ && (strlen(word_cpy)==0)) {
@@ -211,6 +212,7 @@ char* anagram(char* word, char* txt) {
                     i-=curr_len;
                     i++;
                     curr_len=0;
+                    s=0;
                 }
                 else {
                     i = i -curr_len;
@@ -218,6 +220,7 @@ char* anagram(char* word, char* txt) {
                     memset(tmp_wrd,0,strlen(tmp_wrd));
                     word_cpy = strcpy(word_cpy, word);
                     curr_len=0;
+                    s=0;
                 }
         }
         if (i==txt_len-1 && curr_len-s != wrd_len) {
